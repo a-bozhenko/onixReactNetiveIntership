@@ -1,4 +1,4 @@
 # onixReactNetiveIntership
 
-Use `yarn install` insted `npm install`
+Use `yarn install` instead `npm install`
 
