@@ -1,5 +1,9 @@
 import MainScreen from './MainScreen';
+import AvatarScreen from './AvatarScreen';
+import SettingsScreen from './SettingsScreen';
 
 export {
-  MainScreen
+  MainScreen,
+  AvatarScreen,
+  SettingsScreen
 };

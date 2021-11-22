@@ -1,6 +1,7 @@
 package com.onixreactnetiveintership;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +12,10 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "onixReactNetiveIntership";
+  }
+
+  @Override
+  protected void onCreate(Bundle saveInstanceState) {
+    super.onCreate(null);
   }
 }

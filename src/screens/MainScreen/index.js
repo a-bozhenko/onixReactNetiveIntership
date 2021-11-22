@@ -1,30 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  View, Text,
+  View, Text, TouchableOpacity
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import {
-  ContainerWrapper, Header, Footer, TextEditor
+  ContainerWrapper, Footer,
 } from '../../components';
+import { getUsers } from '../../db';
+import { SCREEN_NAMES } from '../../../App';
 
 const MainScreen = function () {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    getUsers().then((response) => {
+      setUsers(response);
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
+    });
+  }, []);
+
+  const drawSingleItem = (item) => {
+    return (
+      <TouchableOpacity
+        key={`user_${item.id}`}
+        style={styles.userItem}
+        onPress={() => navigation.navigate(SCREEN_NAMES.SETTINGS, { id: item.id })}
+      >
+        <Text>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View
       style={styles.root}
     >
-      <Header />
-
       <ContainerWrapper>
-
-        <View style={styles.infoWrapper}>
-          <Text style={styles.textTitle}>Profile:</Text>
-          <Text style={styles.text}>Name: Andrey</Text>
-          <Text style={styles.text}>Surname: Bozhenko</Text>
-          <Text style={styles.text}>Age: 30</Text>
-        </View>
-
-        <TextEditor />
-
+        {loading ? (<Text>Loading...</Text>) : (
+          <View>
+            {users.map(drawSingleItem)}
+          </View>
+        )}
       </ContainerWrapper>
       <Footer />
     </View>

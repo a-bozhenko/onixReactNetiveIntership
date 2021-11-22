@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     paddingHorizontal: 5,
-
+    marginTop: 10
   },
   scrollContainer: {
     paddingHorizontal: 15,
