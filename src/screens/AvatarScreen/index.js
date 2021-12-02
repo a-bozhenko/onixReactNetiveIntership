@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
-  Image
+  Image, Text
 } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import styles from './styles';
 import {
   ContainerWrapper, Footer
 } from '../../components';
-import { avatar } from '../../assets';
+import { getUserById } from '../../db';
 
 const AvatarScreen = function () {
+  const [user, setUser] = useState(null);
+  const route = useRoute();
+
+  useEffect(() => {
+    const userId = route?.params?.id || 1;
+
+    getUserById(userId).then((response) => {
+      setUser(response);
+    }).catch((e) => {
+      console.log('some error', e);
+    });
+  }, []);
+
+  if (!user?.id) return <Text>Loading...</Text>;
+
   return (
     <View
       style={styles.root}
     >
       <ContainerWrapper>
         <View style={styles.avatarWrapper}>
-          <Image source={avatar} />
+          <Image source={user.avatar} />
         </View>
       </ContainerWrapper>
       <Footer />

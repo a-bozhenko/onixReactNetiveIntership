@@ -29,7 +29,7 @@ const MainScreen = function () {
       <TouchableOpacity
         key={`user_${item.id}`}
         style={styles.userItem}
-        onPress={() => navigation.navigate(SCREEN_NAMES.SETTINGS, { id: item.id })}
+        onPress={() => navigation.navigate(SCREEN_NAMES.PROFILE, { id: item.id })}
       >
         <Text>{item.name}</Text>
       </TouchableOpacity>

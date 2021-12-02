@@ -1,1 +1,6 @@
-export { avatar } from './images';
+export {
+  andreyAvatar,
+  vasiliyAvatar,
+  olegAvatar,
+  kostiyaAvatar, 
+} from './images';
