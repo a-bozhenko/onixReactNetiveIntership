@@ -6,6 +6,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   MainScreen, AvatarScreen, SettingsScreen, ProfileScreen
@@ -17,6 +18,7 @@ const styles = StyleSheet.create({
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export const SCREEN_NAMES = {
   MAIN: 'Main',
@@ -36,7 +38,9 @@ const App = function () {
         <Stack.Screen
           name={SCREEN_NAMES.MAIN}
           component={MainScreen}
-
+          options={{
+            headerShown: false,
+          }}
         />
 
         <Stack.Screen
@@ -52,24 +56,47 @@ const App = function () {
     );
   };
 
+  const BottomNavigator = function () {
+    return (
+      <Tab.Navigator initialRouteName={SCREEN_NAMES.MAIN}>
+        <Tab.Screen
+          name={SCREEN_NAMES.MAIN}
+          component={UserStack}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({
+              color,
+              size
+            }) => drawIcon('home', color,
+              size)
+          }}
+        />
+        <Tab.Screen
+          name={SCREEN_NAMES.SETTINGS}
+          component={SettingsScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({
+              color,
+              size
+            }) => drawIcon('cog', color,
+              size)
+          }}
+        />
+      </Tab.Navigator>
+    );
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.root}>
         <NavigationContainer>
-          <Tab.Navigator initialRouteName={SCREEN_NAMES.MAIN}>
-            <Tab.Screen
+          <Drawer.Navigator initialRouteName={SCREEN_NAMES.MAIN}>
+            <Drawer.Screen
               name={SCREEN_NAMES.MAIN}
-              component={UserStack}
-              options={{
-                headerShown: false,
-                tabBarIcon: ({
-                  color,
-                  size
-                }) => drawIcon('home', color,
-                  size)
-              }}
+              component={BottomNavigator}
             />
-            <Tab.Screen
+            <Drawer.Screen
               name={SCREEN_NAMES.SETTINGS}
               component={SettingsScreen}
               options={{
@@ -80,7 +107,7 @@ const App = function () {
                   size)
               }}
             />
-          </Tab.Navigator>
+          </Drawer.Navigator>
         </NavigationContainer>
       </SafeAreaView>
     </SafeAreaProvider>
