@@ -2,6 +2,8 @@ package com.onixreactnetiveintership;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
+import com.facebook.react.ReactActivityDelegate; // <- add this necessary import for splash
+import com.zoontek.rnbootsplash.RNBootSplash; // <- add this necessary import for splash
 
 public class MainActivity extends ReactActivity {
 
@@ -18,4 +20,16 @@ public class MainActivity extends ReactActivity {
   protected void onCreate(Bundle saveInstanceState) {
     super.onCreate(null);
   }
+
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+      return new ReactActivityDelegate(this, getMainComponentName()) {
+
+        @Override
+        protected void loadApp(String appKey) {
+          RNBootSplash.init(MainActivity.this); // <- initialize the splash screen
+          super.loadApp(appKey);
+        }
+      };
+    }
 }

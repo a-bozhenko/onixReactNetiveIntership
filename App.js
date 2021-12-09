@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import RNBootSplash from 'react-native-bootsplash';
 import {
   MainScreen, AvatarScreen, SettingsScreen, ProfileScreen
 } from './src/screens';
@@ -90,7 +91,7 @@ const App = function () {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.root}>
-        <NavigationContainer>
+        <NavigationContainer onReady={() => RNBootSplash.hide()}>
           <Drawer.Navigator initialRouteName={SCREEN_NAMES.MAIN}>
             <Drawer.Screen
               name={SCREEN_NAMES.MAIN}
