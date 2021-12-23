@@ -3,7 +3,7 @@ import {
   View, TouchableOpacity, Text, StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SCREEN_NAMES } from '../../../App';
+import { SCREEN_NAMES } from '../../constants';
 
 const styles = StyleSheet.create({
   wrapperButtons: {

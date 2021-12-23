@@ -3,12 +3,13 @@ import {
   View, Text, TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
 import {
   ContainerWrapper, Footer,
 } from '../../components';
 import { getUsers } from '../../db';
-import { SCREEN_NAMES } from '../../../App';
+import { SCREEN_NAMES } from '../../constants';
 
 const MainScreen = function () {
   const [users, setUsers] = useState([]);
@@ -37,9 +38,7 @@ const MainScreen = function () {
   };
 
   return (
-    <View
-      style={styles.root}
-    >
+    <SafeAreaView style={styles.root}>
       <ContainerWrapper>
         {loading ? (<Text>Loading...</Text>) : (
           <View>
@@ -48,7 +47,7 @@ const MainScreen = function () {
         )}
       </ContainerWrapper>
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 };
 

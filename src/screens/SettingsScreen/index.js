@@ -4,12 +4,13 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Picker from 'react-native-picker-select';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
 import {
   ContainerWrapper, Footer,
 } from '../../components';
 import actions from '../../store/translate/actions';
-import { LOCALE_TYPES } from '../../store/translate/constants';
+import { LOCALE_TYPES } from '../../constants';
 
 const SettingsScreen = function () {
   const { locale } = useSelector((state) => ({
@@ -21,7 +22,7 @@ const SettingsScreen = function () {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={styles.root}
     >
       <ContainerWrapper>
@@ -40,7 +41,7 @@ const SettingsScreen = function () {
         </View>
       </ContainerWrapper>
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 };
 

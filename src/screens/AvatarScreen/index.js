@@ -4,6 +4,7 @@ import {
   Image, Text
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
 import {
   ContainerWrapper, Footer
@@ -27,7 +28,7 @@ const AvatarScreen = function () {
   if (!user?.id) return <Text>Loading...</Text>;
 
   return (
-    <View
+    <SafeAreaView
       style={styles.root}
     >
       <ContainerWrapper>
@@ -36,7 +37,7 @@ const AvatarScreen = function () {
         </View>
       </ContainerWrapper>
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 };
 

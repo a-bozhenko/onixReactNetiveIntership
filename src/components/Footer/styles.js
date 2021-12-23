@@ -8,6 +8,7 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#333',
     borderStyle: 'solid',
+    backgroundColor: '#fff',
   },
   footerTitle: {
     fontFamily: 'Arial',

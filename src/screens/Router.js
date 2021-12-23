@@ -5,9 +5,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { SCREEN_NAMES } from '../../App';
+import { SCREEN_NAMES } from '../constants';
 import {
-  AvatarScreen, MainScreen, ProfileScreen, SettingsScreen
+  AvatarScreen, MainScreen, ProfileScreen, SettingsScreen,
+  ListScreen
 } from './index';
 
 const Tab = createBottomTabNavigator();
@@ -45,9 +46,9 @@ const Router = function () {
 
   const BottomNavigator = function () {
     return (
-      <Tab.Navigator initialRouteName={SCREEN_NAMES.MAIN}>
+      <Tab.Navigator initialRouteName={SCREEN_NAMES.MAIN_BOTTOM}>
         <Tab.Screen
-          name={SCREEN_NAMES.MAIN}
+          name={SCREEN_NAMES.MAIN_BOTTOM}
           component={UserStack}
           options={{
             headerShown: false,
@@ -58,8 +59,22 @@ const Router = function () {
               size)
           }}
         />
+
         <Tab.Screen
-          name={SCREEN_NAMES.SETTINGS}
+          name={SCREEN_NAMES.LISTS_BOTTOM}
+          component={ListScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({
+              color,
+              size
+            }) => drawIcon('format-list-bulleted', color,
+              size)
+          }}
+        />
+
+        <Tab.Screen
+          name={SCREEN_NAMES.SETTINGS_BOTTOM}
           component={SettingsScreen}
           options={{
             headerShown: false,

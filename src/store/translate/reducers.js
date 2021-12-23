@@ -1,4 +1,4 @@
-import { LOCALE_TYPES } from './constants';
+import { LOCALE_TYPES } from '../../constants';
 import types from './types';
 
 const initialState = {

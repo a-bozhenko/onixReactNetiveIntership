@@ -11,6 +11,9 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+// this will breake debugger so i decide that debugger is more important then reanimated))) (i dont want to use flipper, cant understand why they didnt fix this yet)
+// import com.facebook.react.bridge.JSIModulePackage; // <- add
+// import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -34,6 +37,11 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+//         @Override
+//         protected JSIModulePackage getJSIModulePackage() {
+//           return new ReanimatedJSIModulePackage();
+//         }
       };
 
   @Override

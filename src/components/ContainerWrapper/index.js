@@ -11,24 +11,37 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   scrollContainer: {
+    flex: 1,
     paddingHorizontal: 15,
     marginBottom: 15,
+    flexDirection: 'column',
   },
+  footerCompensation: {
+    paddingBottom: 60
+  }
 });
 
 const ContainerWrapper = function (props) {
-  const { children } = props;
+  const { children, noScroll } = props;
+
+  const WrapperComponent = noScroll ? View : ScrollView;
+
   return (
     <View style={styles.root}>
-      <ScrollView style={styles.scrollContainer}>
+      <WrapperComponent style={[styles.scrollContainer, noScroll && styles.footerCompensation]}>
         {children}
-      </ScrollView>
+      </WrapperComponent>
     </View>
   );
 };
 
 ContainerWrapper.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  noScroll: PropTypes.bool
+};
+
+ContainerWrapper.defaultProps = {
+  noScroll: false
 };
 
 export default ContainerWrapper;

@@ -5,12 +5,13 @@ import {
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
 import {
   ContainerWrapper, Footer, TextEditor
 } from '../../components';
 import { getUserById } from '../../db';
-import { SCREEN_NAMES } from '../../../App';
+import { SCREEN_NAMES } from '../../constants';
 
 const ProfileScreen = function () {
   const [user, setUser] = useState(null);
@@ -34,7 +35,7 @@ const ProfileScreen = function () {
   if (!user?.id) return <Text>Loading...</Text>;
 
   return (
-    <View
+    <SafeAreaView
       style={styles.root}
     >
       <ContainerWrapper>
@@ -69,7 +70,7 @@ const ProfileScreen = function () {
 
       </ContainerWrapper>
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 };
 
