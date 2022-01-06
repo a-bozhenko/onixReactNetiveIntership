@@ -10,8 +10,11 @@ import {
   ContainerWrapper, Footer
 } from '../../components';
 import { getUserById } from '../../db';
+import { ColorSchemeClass } from '../../entities';
 
 const AvatarScreen = function () {
+  const { colors } = new ColorSchemeClass().getTheme();
+
   const [user, setUser] = useState(null);
   const route = useRoute();
 
@@ -25,7 +28,7 @@ const AvatarScreen = function () {
     });
   }, []);
 
-  if (!user?.id) return <Text>Loading...</Text>;
+  if (!user?.id) return <Text style={{ color: colors.text }}>Loading...</Text>;
 
   return (
     <SafeAreaView

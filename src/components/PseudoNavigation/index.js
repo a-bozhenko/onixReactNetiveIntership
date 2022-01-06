@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../constants';
+import { ColorSchemeClass } from '../../entities';
 
 const styles = StyleSheet.create({
   wrapperButtons: {
@@ -25,6 +26,8 @@ const styles = StyleSheet.create({
 const PseudoNavigation = function () {
   const navigation = useNavigation();
 
+  const { colors } = new ColorSchemeClass().getTheme();
+
   const onChangeScreen = (goTo, params = {}) => {
     navigation.navigate(goTo, params);
   };
@@ -33,10 +36,10 @@ const PseudoNavigation = function () {
     return (
       <TouchableOpacity
         key={screenName}
-        style={styles.button}
+        style={[styles.button, { borderColor: colors.border }]}
         onPress={() => { onChangeScreen(screenName); }}
       >
-        <Text>{screenName}</Text>
+        <Text style={[{ color: colors.text }]}>{screenName}</Text>
       </TouchableOpacity>
     );
   };

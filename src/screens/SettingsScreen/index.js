@@ -3,22 +3,31 @@ import {
   View, Text,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Picker from 'react-native-picker-select';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
 import {
-  ContainerWrapper, Footer,
+  ContainerWrapper, Footer, Select
 } from '../../components';
 import actions from '../../store/translate/actions';
-import { LOCALE_TYPES } from '../../constants';
+import globalsActions from '../../store/globals/actions';
+import { LOCALE_TYPES, COLOR_SCHEMES } from '../../constants';
+import { ColorSchemeClass } from '../../entities';
 
 const SettingsScreen = function () {
-  const { locale } = useSelector((state) => ({
-    locale: state.locale.locale
+  const { locale, colorScheme } = useSelector((state) => ({
+    locale: state.locale.locale,
+    colorScheme: state.globals.colorScheme
   }));
+
+  const { colors } = new ColorSchemeClass().getTheme();
+
   const dispatch = useDispatch();
   const onSetLocale = (newLocale) => {
     dispatch(actions.setLocale(newLocale));
+  };
+
+  const onSetColorScheme = (preferSystemColor) => {
+    dispatch(globalsActions.setColorScheme(preferSystemColor));
   };
 
   return (
@@ -27,14 +36,29 @@ const SettingsScreen = function () {
     >
       <ContainerWrapper>
         <View style={styles.infoWrapper}>
-          <Text style={styles.textTitle}>Global settings:</Text>
+          <Text style={[styles.textTitle, { color: colors.text, backgroundColor: colors.background }]}>
+            Global settings:
+          </Text>
 
-          <Picker
-            onValueChange={(value) => onSetLocale(value)}
+          <Select
+            label="Language:"
+            onChange={(value) => onSetLocale(value)}
             value={locale}
             items={[
               { label: 'En', value: LOCALE_TYPES.EN },
               { label: 'Ru', value: LOCALE_TYPES.RU },
+            ]}
+          />
+
+          <Select
+            label="Preferred color scheme:"
+            onChange={(value) => onSetColorScheme(value)}
+            value={colorScheme}
+            items={[
+              { label: 'Auto', value: COLOR_SCHEMES.AUTO },
+              { label: 'System', value: COLOR_SCHEMES.FROM_DEVICE },
+              { label: 'Light', value: COLOR_SCHEMES.LIGHT },
+              { label: 'Dark', value: COLOR_SCHEMES.DARK },
             ]}
           />
 

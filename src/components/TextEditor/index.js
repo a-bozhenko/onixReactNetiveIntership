@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, Text } from 'react-native';
 import styles from './styles';
+import { ColorSchemeClass } from '../../entities';
 
 const propTypes = {
   maxLength: PropTypes.number
@@ -14,6 +15,8 @@ const TextEditor = function (props) {
   const { maxLength } = props;
   const [text, setText] = useState('');
 
+  const { colors } = new ColorSchemeClass().getTheme();
+
   const placeholderText = 'Changing input will change this text';
 
   const onChange = (newText) => {
@@ -21,9 +24,9 @@ const TextEditor = function (props) {
   };
 
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, { color: colors.text, backgroundColor: colors.background }]}>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { color: colors.text, backgroundColor: colors.background }]}
         placeholder="Change the text"
         onChangeText={onChange}
         multiline
@@ -32,9 +35,9 @@ const TextEditor = function (props) {
         maxLength={maxLength}
       />
 
-      <Text style={styles.resultTitle}>Your result is:</Text>
-      <View style={styles.resultWrapper}>
-        <Text style={styles.resultText}>{text || placeholderText}</Text>
+      <Text style={[styles.resultTitle, { color: colors.text }]}>Your result is:</Text>
+      <View style={[styles.resultWrapper, { color: colors.text }]}>
+        <Text style={[styles.resultText, { color: colors.text }]}>{text || placeholderText}</Text>
       </View>
     </View>
   );

@@ -1,21 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {
+  Appearance, useColorScheme,
+  PlatformColor
+} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useSelector } from 'react-redux';
 import { SCREEN_NAMES } from '../constants';
 import {
   AvatarScreen, MainScreen, ProfileScreen, SettingsScreen,
   ListScreen
 } from './index';
+import { ColorSchemeClass } from '../entities';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const Router = function () {
+  const colorSchemeClass = new ColorSchemeClass();
+  const systemColorScheme = useColorScheme();
+  const { colorScheme: userColorScheme } = useSelector((state) => ({
+    colorScheme: state.globals.colorScheme
+  }));
+
+  const [selectedColorScheme, setSelectedColorScheme] = useState(colorSchemeClass.getTheme());
+
+  const { colors } = new ColorSchemeClass().getTheme();
+
+  useEffect(() => {
+    colorSchemeClass.setColorScheme(systemColorScheme);
+    colorSchemeClass.setUserSelectedOptions(userColorScheme);
+
+    Appearance.addChangeListener((e) => {
+      const newColorScheme = e.colorScheme;
+
+      colorSchemeClass.setColorScheme(newColorScheme);
+
+      setSelectedColorScheme(colorSchemeClass.getTheme());
+    });
+  }, []);
+
+  useEffect(() => {
+    colorSchemeClass.setUserSelectedOptions(userColorScheme);
+    colorSchemeClass.setColorScheme(systemColorScheme);
+
+    setSelectedColorScheme(colorSchemeClass.getTheme());
+  }, [userColorScheme, systemColorScheme]);
+
   const drawIcon = (iconName, color, size) => {
     return <MaterialCommunityIcons name={iconName} color={color} size={size} />;
   };
@@ -90,8 +126,21 @@ const Router = function () {
   };
 
   return (
-    <NavigationContainer onReady={() => RNBootSplash.hide()}>
-      <Drawer.Navigator initialRouteName={SCREEN_NAMES.MAIN}>
+    <NavigationContainer
+      onReady={() => {
+        colorSchemeClass.setUserSelectedOptions(userColorScheme);
+        colorSchemeClass.setColorScheme(systemColorScheme);
+
+        RNBootSplash.hide();
+      }}
+      theme={selectedColorScheme}
+    >
+      <Drawer.Navigator
+        initialRouteName={SCREEN_NAMES.MAIN}
+        screenOptions={{
+          headerTintColor: colors.primary,
+        }}
+      >
         <Drawer.Screen
           name={SCREEN_NAMES.MAIN}
           component={BottomNavigator}

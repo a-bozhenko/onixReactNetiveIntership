@@ -11,8 +11,11 @@ import SectionTypeChangeButtons from './components/SectionTypeChangeButtons';
 import { LIST_TYPES } from '../../constants';
 import data from './data';
 import { prepareSections } from '../../helpers';
+import { ColorSchemeClass } from '../../entities';
 
 const ListScreen = function () {
+  const { colors } = new ColorSchemeClass().getTheme();
+
   const [selectedListType, setSelectedListType] = useState(LIST_TYPES.LIST_ITEMS);
   const [sectionData, setSectionData] = useState([]);
 
@@ -24,7 +27,7 @@ const ListScreen = function () {
 
   const drawListItems = () => {
     return (
-      <View style={styles.listWrapper}>
+      <View style={[styles.listWrapper, { backgroundColor: colors.background, color: colors.text }]}>
         <FlatList
           data={data}
           renderItem={itemRenderer}
@@ -36,7 +39,7 @@ const ListScreen = function () {
 
   const drawSections = () => {
     return (
-      <View style={styles.listWrapper}>
+      <View style={[styles.listWrapper, { backgroundColor: colors.background, color: colors.text }]}>
 
         <SectionList
           sections={sectionData}
@@ -55,7 +58,7 @@ const ListScreen = function () {
     const { section } = sectionObj;
     return (
       <View style={styles.sectionWrapper}>
-        <Text style={styles.sectionName}>{section.name}</Text>
+        <Text style={[styles.sectionName, { color: colors.text }]}>{section.name}</Text>
       </View>
     );
   };
@@ -70,7 +73,7 @@ const ListScreen = function () {
     return (
       <View style={styles.itemWrapper}>
         <Image source={{ uri: item.logo_100px }} style={styles.itemImage} />
-        <Text style={styles.itemName}>{item.name}</Text>
+        <Text style={[styles.itemName, { color: colors.text }]}>{item.name}</Text>
       </View>
     );
   };
@@ -81,7 +84,7 @@ const ListScreen = function () {
     >
       <ContainerWrapper noScroll>
         <View style={styles.infoWrapper}>
-          <Text style={styles.textTitle}>Global lists:</Text>
+          <Text style={[styles.textTitle, { color: colors.text }]}>Global lists:</Text>
           <SectionTypeChangeButtons
             onChange={(newListType) => {
               setSelectedListType(newListType);

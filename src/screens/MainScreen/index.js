@@ -10,11 +10,14 @@ import {
 } from '../../components';
 import { getUsers } from '../../db';
 import { SCREEN_NAMES } from '../../constants';
+import { ColorSchemeClass } from '../../entities';
 
 const MainScreen = function () {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+
+  const { colors } = new ColorSchemeClass().getTheme();
 
   useEffect(() => {
     getUsers().then((response) => {
@@ -29,10 +32,10 @@ const MainScreen = function () {
     return (
       <TouchableOpacity
         key={`user_${item.id}`}
-        style={styles.userItem}
+        style={[styles.userItem, { backgroundColor: colors.background, color: colors.text }]}
         onPress={() => navigation.navigate(SCREEN_NAMES.PROFILE, { id: item.id })}
       >
-        <Text>{item.name}</Text>
+        <Text style={{ color: colors.text }}>{item.name}</Text>
       </TouchableOpacity>
     );
   };
@@ -40,7 +43,7 @@ const MainScreen = function () {
   return (
     <SafeAreaView style={styles.root}>
       <ContainerWrapper>
-        {loading ? (<Text>Loading...</Text>) : (
+        {loading ? (<Text style={{ color: colors.text }}>Loading...</Text>) : (
           <View>
             {users.map(drawSingleItem)}
           </View>

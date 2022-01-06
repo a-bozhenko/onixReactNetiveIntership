@@ -3,4 +3,11 @@ const LIST_TYPES = {
   LIST_ITEMS: 'items'
 };
 
-export { LIST_TYPES };
+const COLOR_SCHEMES = {
+  AUTO: null,
+  FROM_DEVICE: 'device',
+  LIGHT: 'light',
+  DARK: 'dark'
+};
+
+export { LIST_TYPES, COLOR_SCHEMES };
