@@ -10,6 +10,17 @@
       android:roundIcon="@mipmap/onix_icon_round"
       android:allowBackup="false"
       android:theme="@style/BootTheme">
+        <!--
+        google maps config start
+        won't work, for some reason, without real api key
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCYbPVAi4_-Ikq9zGt_Uh3bfwLuBa3zaNw"
+        />
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <!-- google maps config end -->
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

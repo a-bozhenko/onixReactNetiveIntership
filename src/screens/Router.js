@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Appearance, useColorScheme,
-  PlatformColor
 } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { NavigationContainer, } from '@react-navigation/native';
@@ -13,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { SCREEN_NAMES } from '../constants';
 import {
   AvatarScreen, MainScreen, ProfileScreen, SettingsScreen,
-  ListScreen
+  ListScreen, MapScreen
 } from './index';
 import { ColorSchemeClass } from '../entities';
 
@@ -110,6 +109,19 @@ const Router = function () {
         />
 
         <Tab.Screen
+          name={SCREEN_NAMES.MAP_BOTTOM}
+          component={MapScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({
+              color,
+              size
+            }) => drawIcon('map', color,
+              size)
+          }}
+        />
+
+        <Tab.Screen
           name={SCREEN_NAMES.SETTINGS_BOTTOM}
           component={SettingsScreen}
           options={{
@@ -145,6 +157,19 @@ const Router = function () {
           name={SCREEN_NAMES.MAIN}
           component={BottomNavigator}
         />
+
+        <Drawer.Screen
+          name={SCREEN_NAMES.MAP}
+          component={MapScreen}
+          options={{
+            tabBarIcon: ({
+              color,
+              size
+            }) => drawIcon('map', color,
+              size)
+          }}
+        />
+
         <Drawer.Screen
           name={SCREEN_NAMES.SETTINGS}
           component={SettingsScreen}

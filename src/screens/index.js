@@ -4,6 +4,7 @@ import AvatarScreen from './AvatarScreen';
 import SettingsScreen from './SettingsScreen';
 import ListScreen from './Lists';
 import Router from './Router';
+import MapScreen from './MapScreen';
 
 export {
   MainScreen,
@@ -11,5 +12,6 @@ export {
   AvatarScreen,
   SettingsScreen,
   ListScreen,
-  Router
+  Router,
+  MapScreen
 };
