@@ -12,3 +12,18 @@ yarn react-native generate-bootsplash src/assets/icon/icon.png \
   --assets-path=src/assets/splashscreen \
   --flavor=main
 ```
+
+
+## keystore
+/android/keystore/debug.jks
+
+pass qwe123
+alias onixReactNetiveIntership
+
+
+Andrey Bozhenko
+AB
+AB
+kk
+13
+UA
