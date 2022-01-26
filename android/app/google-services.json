@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333017273535",
+    "project_id": "onixreactnetiveintership",
+    "storage_bucket": "onixreactnetiveintership.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333017273535:android:2adba681040df810b8e20a",
+        "android_client_info": {
+          "package_name": "com.onixreactnetiveintership"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333017273535-2sor2j4u8cdlj2pfdnt2t180sv6i7iks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0qG11NU-o7QYIDZ64pMiPxuutZvpJ9-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333017273535-2sor2j4u8cdlj2pfdnt2t180sv6i7iks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

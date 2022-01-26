@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text,
+  View, Text, TextInput, Linking, TouchableOpacity
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,9 +14,10 @@ import { LOCALE_TYPES, COLOR_SCHEMES } from '../../constants';
 import { ColorSchemeClass } from '../../entities';
 
 const SettingsScreen = function () {
-  const { locale, colorScheme } = useSelector((state) => ({
+  const { locale, colorScheme, pushNotificationToken } = useSelector((state) => ({
     locale: state.locale.locale,
-    colorScheme: state.globals.colorScheme
+    colorScheme: state.globals.colorScheme,
+    pushNotificationToken: state.globals.pushNotificationToken,
   }));
 
   const { colors } = new ColorSchemeClass().getTheme();
@@ -61,6 +62,24 @@ const SettingsScreen = function () {
               { label: 'Dark', value: COLOR_SCHEMES.DARK },
             ]}
           />
+
+          <Text style={[styles.label, { color: colors.text }]}>Push notification token:</Text>
+
+          <TextInput
+            value={pushNotificationToken}
+            multiline
+            numberOfLines={3}
+            textAlignVertical="top"
+          />
+
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: colors.primary }]}
+            onPress={() => {
+              Linking.openURL('https://testfcm.com');
+            }}
+          >
+            <Text style={[styles.buttonText, { color: colors.text }]}>Test on testfcm.com</Text>
+          </TouchableOpacity>
 
         </View>
       </ContainerWrapper>

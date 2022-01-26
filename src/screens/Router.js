@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Appearance, useColorScheme,
+  Appearance, useColorScheme, Alert
 } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { NavigationContainer, } from '@react-navigation/native';
@@ -8,13 +8,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import messaging from '@react-native-firebase/messaging';
 import { SCREEN_NAMES } from '../constants';
 import {
   AvatarScreen, MainScreen, ProfileScreen, SettingsScreen,
   ListScreen, MapScreen
 } from './index';
 import { ColorSchemeClass } from '../entities';
+import actions from '../store/globals/actions';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,6 +28,30 @@ const Router = function () {
   const { colorScheme: userColorScheme } = useSelector((state) => ({
     colorScheme: state.globals.colorScheme
   }));
+  const dispatch = useDispatch();
+
+  const setPushNotificationTokenToStore = (deviceToken) => {
+    dispatch(actions.setPushNotificationToken(deviceToken));
+  };
+
+  useEffect(() => {
+    getPushNotificationId();
+    subscribeForPushNotifications();
+  }, []);
+
+  const getPushNotificationId = () => {
+    messaging().getToken().then((token) => {
+      setPushNotificationTokenToStore(token);
+    }).catch((error) => {
+      console.log('getPushNotificationId.error', error);
+    });
+  };
+
+  const subscribeForPushNotifications = () => {
+    messaging().onMessage(async (remoteMessage) => {
+      Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
+    });
+  };
 
   const [selectedColorScheme, setSelectedColorScheme] = useState(colorSchemeClass.getTheme());
 

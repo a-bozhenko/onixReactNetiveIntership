@@ -18,5 +18,16 @@ export default StyleSheet.create({
   },
   safeAreaViewRoot: {
 
+  },
+  button: {
+    width: '100%',
+    borderRadius: 6,
+    alignItems: 'center',
+    padding: 10,
+    marginTop: 10,
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    fontSize: 14,
   }
 });
